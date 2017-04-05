@@ -101,6 +101,10 @@ class Kohana_Email {
 		{
 			$this->_mailer->isSendmail();
 		}
+		else 
+		{
+			$this->_mailer->isMail();
+		}
 		
 		// set from addr
 		//if($from) call_user_func_array([$this,'from'],(is_array($from)?((isAssoc($from)?[$from]:$from)$from):[$from]))
@@ -135,7 +139,7 @@ class Kohana_Email {
 	 * @param	 bool is message HTML
 	 * @return	void
 	 */	
-	public function __construct ($subject = NULL, $message = NULL, $isHTML = false)
+	public function __construct ($subject = NULL, $message = NULL, $isHTML = FALSE)
 	{		
 		$this->mailer();
 		
@@ -147,14 +151,17 @@ class Kohana_Email {
 		
 		if($message)
 		{
-			// Apply message and type
-			$this->_mailer->Body = $message;
-			
 			if($isHTML)
+			{
 				$this->_mailer->AltBody = strip_tags($message);
-			
-			if($isHTML !== NULL)
-				$this->_mailer->isHTML(false);
+				$this->_mailer->isHTML(TRUE);
+				$this->_mailer->MsgHTML($message);
+			}
+			else
+			{
+				$this->_mailer->isHTML(FALSE);
+				$this->_mailer->Body = $message;
+			}				
 		}
 	}
 	
