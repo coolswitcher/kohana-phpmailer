@@ -8,6 +8,8 @@
  * @copyright	(c) 2014 Timophey Lanevich
  * @license		http://kohanaphp.com/license.html
  */
+use PHPMailer\PHPMailer\PHPMailer;
+
 class Kohana_Email {
 
 	/**
@@ -25,8 +27,10 @@ class Kohana_Email {
 	 */
 	public function mailer() 
 	{
-		if($this->_mailer) 
+		if($this->_mailer)
+		{
 			return $this->_mailer;
+		}
 
 		// else if it not exists
 		// create instance of PHPMailer
